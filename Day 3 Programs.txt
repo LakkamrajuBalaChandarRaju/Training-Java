@@ -1,0 +1,162 @@
+Day   3
+
+
+1. Currency denomination
+
+
+Program
+
+package Programs;
+
+import java.util.Scanner;
+
+  public class CurrencyDenomination {
+
+ public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+               int R1,R2,R3,R4,R5,R6;
+               int Sum;
+               int Amount;
+         System.out.println("Enter the amount: ");
+             Amount=sc.nextInt();
+              R1=Amount/100;
+            Amount=Amount%100;
+
+                        R2=Amount/50;
+              Amount=Amount%50;
+
+         R3=Amount/10;
+                        Amount=Amount%10;
+
+            R4=Amount/5;
+Amount=Amount%5;
+
+                R5=Amount/2;
+               Amount=Amount%2;
+
+                   R6=Amount;
+                     Sum=R1+R2+R3+R4+R5+R6;
+               System.out.println(Sum);
+
+
+
+}
+
+}
+
+============================================================================
+
+2   OverallRating (Magic)
+
+Program 
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+
+public class OverallRating {
+
+public static void main(String[] args) {
+
+
+
+try (Scanner scanner = new Scanner(System.in)) {
+
+
+System.out.println("Enter the number of people who watched show 1: ");
+int ShowOneViewers = scanner.nextInt();
+System.out.println("Enter the average rating for show 1: ");
+     float showOneRating = scanner.nextFloat();
+     
+     System.out.println("Enter the number of people who watched show 2: ");
+     float showTwoViewers = scanner.nextInt();
+     System.out.println("Enter the average rating for show 2: ");
+     float showTwoRating = scanner.nextFloat();
+
+     System.out.println("Enter the number of people who watched show 3: ");
+     int showThreeViewers = scanner.nextInt();
+     System.out.println("Enter the average rating for show 3: ");
+     float showThreeRating = scanner.nextFloat();
+
+     
+     Object AverageRating = (((showOneRating* ShowOneViewers) + (showTwoRating*showTwoViewers) + (showThreeRating * showThreeViewers)) / (ShowOneViewers + showTwoViewers + showThreeViewers));
+
+       System.out.printf("The overall average rating for the show is: %.2f", AverageRating);
+}
+catch (final InputMismatchException inputMismatchException) {
+ System.out.println("Enter Invalid input");
+}}}
+
+=======================================================================================================
+3  Runrate(Cricket)
+
+package Programs;
+
+import java.util.*;
+
+public class RequiredRunRate {
+
+	public static void main(String[] args) {
+		
+		 Scanner sc=new Scanner(System.in);
+		 System.out.print("Enter Number Of Overs:");
+		 
+		 int totalovers = sc.nextInt();
+		 System.out.print("Enter Total Runs:");
+		 
+		 int totalruns = sc.nextInt();
+		 System.out.print("Enter No Of Overs Bowled:");
+		 
+		 int noofoverbowled = sc.nextInt();;
+		 System.out.print("Enter No Runs Scored So Far:");
+		 
+		 int runsofar = sc.nextInt();
+		 float truns=runsofar/noofoverbowled;
+		 System.out.println("Current Run Rate"+truns);
+		 
+		 float rrate=(float)(totalruns-runsofar)/(float)(totalovers-noofoverbowled);
+		 System.out.println("Required Run Rate:"+rrate);
+		 
+		 
+		 
+		}
+		}
+
+==============================================================
+
+Total Expenses
+
+program 
+
+package Programs;
+
+
+
+import java.util.Scanner;
+
+public class TotalExpenses{
+public static void main(String[] args) {
+ 
+ Scanner sc=new Scanner(System.in);
+ System.out.print("Enter branding expenses:");
+ int b = sc.nextInt();
+ System.out.print("Enter travel expenses : ");
+ int t = sc.nextInt();
+ System.out.print("Enter food expenses:");
+ int f = sc.nextInt();;
+ System.out.print("Enter logistics expenses: ");
+ int l = sc.nextInt();
+double Total=b+t+f+l;
+System.out.println("Total Expenses : Rs." +Total);
+System.out.printf("branding espenses: %.2f\n",((double)(b)/(double)(Total))*100);
+System.out.printf("travel espenses: %.2f\n",((double)(t)/(double)(Total))*100);
+System.out.printf("food espenses: %.2f\n",((double)(f)/(double)(Total))*100);
+System.out.printf("logistics espenses: %.2f\n",((double)(l)/(double)(Total))*100);
+}
+}
+
+
+
+
+==============================================================
+
