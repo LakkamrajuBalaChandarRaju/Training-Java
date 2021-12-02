@@ -1,0 +1,154 @@
+Day  4
+
+1 Discunt Products  
+
+Program
+
+import java.util.Scanner;
+
+public class DiscountProducts{
+public static void main(String[] args) {
+ 
+ Scanner sc=new Scanner(System.in);
+ System.out.print("Product 1 :");
+ int Product1 = sc.nextInt();
+ System.out.print("Product 2 : ");
+ int Product2 = sc.nextInt(),lessprice;
+ System.out.print("Product 3 :");
+ int Product3 = sc.nextInt();;
+ double Total=Product1+Product2+Product3;
+ System.out.println("Total : " +Total);
+ 
+ System.out.printf("Offer 1 Discount : %.2f\n",((double)(Total)/(double)(100))*20);
+	if(Product1<Product2 && Product1<Product3){
+		lessprice=Product1;
+	}
+	else if(Product2<Product1 && Product2<Product3){
+	
+		lessprice=Product2;
+	}
+	else{
+		lessprice=Product3;
+	}
+	System.out.printf("Offer 2 price: %.2f\n",((double)(Total)-(double)(lessprice)));
+}
+}
+
+
+=====================================================================================================================
+
+
+2  ChicldernChacolates
+
+Program 
+
+import java.util.*;
+public class ChildrenChacolates {
+	static int count=0;
+	
+	public static void main(String[] args){
+		int Chacos;
+		int Childs;
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter no.of chocolates:");
+		Chacos=sc.nextInt();
+		System.out.println("Enter no.of children:");
+		Childs=sc.nextInt();
+		for(int i=0;i<=Childs;i++){
+			if(Chacos>=i){
+				Chacos=Chacos-i;
+				count++;
+			}
+		}
+		System.out.println("Chocolates remaining "+Chacos);
+		System.out.println("How many children got Chocolates "+count);
+	}
+}
+
+========================================================================================================
+
+3  Watermelon
+
+Program 
+
+import java.util.Scanner;
+
+public class Watermelon
+{
+	static int count; 
+	public static void main(String[] args) 
+	{
+		Scanner sc=new Scanner(System.in); 
+		
+		System.out.print("Enter the weight of Watermelon :"); 
+		int weight=sc.nextInt();
+
+
+if(weight%2!=0){
+
+System.out.println("Sorry, You can't Buy Look for Even");
+}
+
+else{
+
+for(int i=1;i<weight;i++)
+{
+	for(int j=1;j<=weight;j++)
+	{
+		int temp=i+j; if(temp==weight)
+		{ 
+			if(temp==weight){
+			count++; 
+			System.out.println(i+" "+j); }
+	
+}
+
+}
+
+} 
+	System.out.println("Possible Splitting :"+count);
+
+}
+	}
+}
+
+
+==================================================================================================================
+
+
+4  Number of Turns (Archery)
+
+Program 
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Archery {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		 System.out.println("Enter the target:");
+		 int target=sc.nextInt();
+		 int[] turns=new int[10];
+		 int i;
+		 
+		 for(i=1;i<=10;i++){
+			 System.out.println("Enter the point");
+			 turns[i]=sc.nextInt();
+			 int sum=Arrays.stream(turns).sum();
+			 if(sum>=target)
+				 break;
+			 
+		 }
+		 System.out.println("Total turns : "+i);
+		 
+	
+	}
+	
+
+
+}
+
+=======================================================================================
+
