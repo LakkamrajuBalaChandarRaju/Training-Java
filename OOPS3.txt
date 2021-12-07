@@ -1,0 +1,431 @@
+Bala.Lakkamraju(2LM)  OOPS3
+
+
+ 1
+
+
+ItemType.java
+
+public class ItemType {
+	private String name;
+	private Double deposit;
+	private Double costPerDay;
+
+	public ItemType() {
+	}
+
+	public ItemType(String name, Double deposit, Double costPerDay) {
+		this.name = name;
+		this.deposit = deposit;
+		this.costPerDay = costPerDay;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(Double deposit) {
+		this.deposit = deposit;
+	}
+
+	public Double getCostPerDay() {
+		return costPerDay;
+	}
+
+	public void setCostPerDay(Double costPerDay) {
+		this.costPerDay = costPerDay;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append("Name:")
+				.append(name)
+				.append("\nDeposit Amount:")
+				.append(deposit)
+				.append("\nCost Per Day:")
+				.append(costPerDay)
+				.toString();
+	}
+
+}
+
+ 
+ItemTypeBO.java
+
+public class ItemTypeBO {
+	public void add(ItemType object, ItemType[] itemTypeArray, Integer index) {
+		itemTypeArray[index] = object;
+		System.out.println("New item added successfully");
+	}
+
+	public void search(String search, ItemType[] itemTypeArray) {
+		boolean isFound = false;
+
+		for (ItemType item : itemTypeArray) {
+			if (item.getName()
+					.equals(search)) {
+				isFound = true;
+				System.out.println("Searched Item Type is:");
+				System.out.println(item);
+
+			}
+		}
+
+		if (!isFound) {
+			System.out.println("Searched Item Type not found");
+		}
+	}
+
+	public void display(ItemType[] itemTypeArray) {
+		for (int i = 0; i < itemTypeArray.length; i++) {
+			System.out.printf("Item Type Number %d:\n", i + 1);
+			System.out.println(itemTypeArray[i]);
+		}
+	}
+}
+
+ Main.java
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int itemTypeCount = 0;
+		ItemType[] itemTypeArray = null;
+		ItemType itemType = null;
+		ItemTypeBO itemTypeBO = null;
+		String search = null;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			itemTypeBO = new ItemTypeBO();
+
+			System.out.println("Enter the Number of Item Type");
+			itemTypeCount = Integer.parseInt(bufferedReader.readLine());
+
+			itemTypeArray = new ItemType[itemTypeCount];
+
+			for (int i = 0; i < itemTypeCount; i++) {
+				itemType = new ItemType();
+
+				System.out.printf("Enter the Item Type %d Name\n", i + 1);
+				itemType.setName(bufferedReader.readLine());
+
+				System.out.println("Enter the Deposit Amount");
+				itemType.setDeposit(Double.parseDouble(bufferedReader.readLine()));
+
+				System.out.println("Enter the Cost per day");
+				itemType.setCostPerDay(Double.parseDouble(bufferedReader.readLine()));
+
+				itemTypeBO.add(itemType, itemTypeArray, i);
+			}
+
+			itemTypeBO.display(itemTypeArray);
+
+			System.out.println("Enter the Name of the item to be searched");
+			search = bufferedReader.readLine();
+
+			itemTypeBO.search(search, itemTypeArray);
+
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (NumberFormatException inputMismatchException) {
+			System.err.println("Error: Invalid input");
+		} catch (Exception exception) {
+			System.err.println("Error: An error occurred");
+		}
+
+	}
+}
+
+
+OutPut
+
+Enter the Number of Item Type
+3
+Enter the Item Type 1 Name
+Electronics
+Enter the Deposit Amount
+2500
+Enter the Cost per day
+150
+New item added successfully
+Enter the Item Type 2 Name
+Chemicals
+Enter the Deposit Amount
+500
+Enter the Cost per day
+50
+New item added successfully
+Enter the Item Type 3 Name
+Construction
+Enter the Deposit Amount
+2000
+Enter the Cost per day
+500
+New item added successfully
+Item Type Number 1:
+Name:Electronics
+Deposit Amount:2500.0
+Cost Per Day:150.0
+Item Type Number 2:
+Name:Chemicals
+Deposit Amount:500.0
+Cost Per Day:50.0
+Item Type Number 3:
+Name:Construction
+Deposit Amount:2000.0
+Cost Per Day:500.0
+Enter the Name of the item to be searched
+Construction
+Searched Item Type is:
+Name:Construction
+Deposit Amount:2000.0
+Cost Per Day:500.0
+
+==============================================================================================================
+
+2
+
+
+   User.java
+
+public class User implements Comparable<User> {
+	private String name;
+	private String mobileNumber;
+	private String username;
+	private String password;
+
+	public User() {
+	}
+
+	public User(String name, String mobileNumber, String username, String password) {
+		this.name = name;
+		this.mobileNumber = mobileNumber;
+		this.username = username;
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append("Name:")
+				.append(name)
+				.append("\nMobile Number:")
+				.append(mobileNumber)
+				.toString();
+	}
+
+	@Override
+	public int compareTo(User user) {
+		return this.name.compareTo(user.name);
+	}
+}
+
+_____________________________________________________________________
+ UserBO.java
+
+import java.util.Arrays;
+
+public class UserBO {
+	public void addUser(User[] userArray, User userIns) {
+		int lastIndex = 0;
+
+		for (int i = 0; i < userArray.length; i++) {
+			if (userArray[i] == null) {
+				lastIndex = i;
+				break;
+			}
+		}
+
+		userArray[lastIndex] = userIns;
+	}
+
+	public void sortUsers(User[] userArray) {
+		Arrays.sort(userArray);
+	}
+
+	public Boolean deleteUser(User[] userArray, String name) {
+		for (int i = 0; i < userArray.length; i++) {
+			if (userArray[i].getName()
+					.equals(name)) {
+				userArray[i] = null;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public void displayAll(User[] userArray) {
+		System.out.println("User Details:");
+
+		for (int i = 0; i < userArray.length; i++) {
+			if (userArray[i] != null) {
+				System.out.printf("User %d\n", i + 1);
+				System.out.println(userArray[i]);
+			}
+		}
+	}
+}
+
+
+________________________________________________________________________________________________________________________
+    Main.java
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		int usersCount = 0;
+		User[] usersArray = null;
+		User user = null;
+		UserBO userBO = null;
+		String userToBeDeleted = null;
+		boolean isUserDeleted = false;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			userBO = new UserBO();
+
+			System.out.println("Enter the number of users");
+			usersCount = Integer.parseInt(bufferedReader.readLine());
+
+			usersArray = new User[usersCount];
+
+			for (int i = 0; i < usersCount; i++) {
+				user = new User();
+
+				System.out.printf("Enter the details of User %d\n", i + 1);
+				System.out.println("Enter the name of the user:");
+				user.setName(bufferedReader.readLine());
+
+				System.out.println("Enter the mobile number of the user:");
+				user.setMobileNumber(bufferedReader.readLine());
+
+				System.out.println("Enter the username of the user:");
+				user.setUsername(bufferedReader.readLine());
+
+				System.out.println("Enter the password of the user:");
+				user.setPassword(bufferedReader.readLine());
+
+				userBO.addUser(usersArray, user);
+			}
+
+			System.out.println("User details as entered:");
+			userBO.displayAll(usersArray);
+
+			userBO.sortUsers(usersArray);
+
+			System.out.println("After sorting:");
+			userBO.displayAll(usersArray);
+
+			System.out.println("Enter the user to be deleted:");
+			userToBeDeleted = bufferedReader.readLine();
+
+			isUserDeleted = userBO.deleteUser(usersArray, userToBeDeleted);
+
+			if (isUserDeleted) {
+				System.out.println("User deleted successfully");
+				System.out.println("After Deleting:");
+				userBO.displayAll(usersArray);
+			} else {
+				System.out.println("No user found with given name");
+			}
+
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (Exception exception) {
+			System.err.println("Error: An error occurred");
+		}
+	}
+}
+
+Output
+
+Enter the number of users:
+2
+Enter the details of User 1
+Enter the name of the user:
+John
+Enter the mobile number of the user:
+12345
+Enter the username of the user:
+john
+Enter the password of the user:
+john
+Enter the details of User 2
+Enter the name of the user:
+Joe
+Enter the mobile number of the user:
+67890
+Enter the username of the user:
+joe
+Enter the password of the user:
+joe
+User details as entered:
+User Details:
+User 1
+Name:John
+Mobile Number:12345
+User 2
+Name:Joe
+Mobile Number:67890
+After sorting:
+User Details:
+User 1
+Name:Joe
+Mobile Number:67890
+User 2
+Name:John
+Mobile Number:12345
+Enter the user to be deleted:
+John
+User deleted successfully 
+After Deleting:
+User Details:
+User 1
+Name:Joe
+Mobile Number:67890
