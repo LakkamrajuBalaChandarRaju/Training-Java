@@ -1,0 +1,237 @@
+Bala.Lakkamraju(2LM)
+
+ Main.java
+_______________________________________________
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+public class Main {
+	public static void main(String[] args) {
+		StageEvent stageEvent = null;
+		Exhibition exhibition = null;
+		String input[] = null;
+		Date startDate = null, endDate = null;
+		double costPerDay = 0.0, gst = 0.0;
+		int choice = -1;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			System.out.println("Enter your choice:");
+			System.out.println("1.Exhibition event");
+			System.out.println("2.Stage event");
+
+			choice = Integer.parseInt(bufferedReader.readLine());
+
+			if (choice == 1) {
+				exhibition = new Exhibition();
+				System.out.println("Enter the details of exhibition");
+
+				input = bufferedReader.readLine()
+						.split(",");
+
+				if (input.length != 6) {
+					throw new Exception("Error: Not all required parameters are entered.");
+				}
+
+				exhibition.setName(input[0]);
+				exhibition.setDetail(input[1]);
+				exhibition.setType(input[2]);
+				exhibition.setOwnerName(input[3]);
+				exhibition.setCostPerDay(Double.parseDouble(input[4]));
+				exhibition.setNoOfStall(Integer.parseInt(input[5]));
+
+			} else if (choice == 2) {
+				stageEvent = new StageEvent();
+				System.out.println("Enter the details of exhibition");
+
+				input = bufferedReader.readLine()
+						.split(",");
+
+				if (input.length != 6) {
+					throw new Exception("Error: Not all required parameters are entered.");
+				}
+
+				stageEvent.setName(input[0]);
+				stageEvent.setDetail(input[1]);
+				stageEvent.setType(input[2]);
+				stageEvent.setOwnerName(input[3]);
+				stageEvent.setCostPerDay(Double.parseDouble(input[4]));
+				stageEvent.setNoOfSeats(Integer.parseInt(input[5]));
+
+			} else {
+				throw new Exception("Error: Invalid choice");
+			}
+
+			System.out.println("Enter the starting date of the event:");
+			startDate = new SimpleDateFormat("dd-MM-yyyy").parse(bufferedReader.readLine());
+
+			System.out.println("Enter the ending date of the event:");
+			endDate = new SimpleDateFormat("dd-MM-yyyy").parse(bufferedReader.readLine());
+
+			long diffInMs = endDate.getTime() - startDate.getTime();
+			long difference = TimeUnit.DAYS.convert(diffInMs, TimeUnit.MILLISECONDS);
+
+			if (exhibition != null) {
+				costPerDay = exhibition.getCostPerDay() * difference;
+				gst = costPerDay * 0.05;
+			} else if (stageEvent != null) {
+				costPerDay = stageEvent.getCostPerDay() * difference;
+				gst = costPerDay * 0.15;
+			}
+
+			System.out.println("The GST to be paid is Rs." + gst);
+		} catch (NumberFormatException numberFormatException) {
+			System.err.println("Error: Invalid number format entered");
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+	}
+}
+
+
+
+ Event.java
+__________________________________________________-
+
+public class Event {
+	private String name;
+	private String detail;
+	private String type;
+	private String ownerName;
+	private Double costPerDay;
+
+	public Event() {
+	}
+
+	public Event(String name, String detail, String type, String ownerName, Double costPerDay) {
+		this.name = name;
+		this.detail = detail;
+		this.type = type;
+		this.ownerName = ownerName;
+		this.costPerDay = costPerDay;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Double getCostPerDay() {
+		return costPerDay;
+	}
+
+	public void setCostPerDay(Double costPerDay) {
+		this.costPerDay = costPerDay;
+	}
+
+}
+
+
+Exhibition.java
+_______________________________
+
+public class Exhibition extends Event {
+	private Integer noOfStall;
+
+	public Exhibition() {
+	}
+
+	public Exhibition(String name, String detail, String type, String ownerName, Double costPerDay, Integer noOfStall) {
+		super(name, detail, type, ownerName, costPerDay);
+		this.noOfStall = noOfStall;
+	}
+
+	public Integer getNoOfStall() {
+		return noOfStall;
+	}
+
+	public void setNoOfStall(Integer noOfStall) {
+		this.noOfStall = noOfStall;
+	}
+
+}
+
+
+StageEvent.java
+
+public class StageEvent extends Event {
+	private Integer noOfSeats;
+
+	public StageEvent() {
+	}
+
+	public StageEvent(String name, String detail, String type, String ownerName, Double costPerDay, Integer noOfSeats) {
+		super(name, detail, type, ownerName, costPerDay);
+		this.noOfSeats = noOfSeats;
+	}
+
+	public Integer getNoOfSeats() {
+		return noOfSeats;
+	}
+
+	public void setNoOfSeats(Integer noOfSeats) {
+		this.noOfSeats = noOfSeats;
+	}
+}
+
+Output
+
+Enter your choice:
+1.Exhibition event
+2.Stage event
+1
+Enter the details of exhibition:
+Science Fair,Exciting experiments,Fair,John,10000.00,10
+Enter the starting date of the event:
+03-01-2018
+Enter the ending date of the event:
+06-01-2018
+The GST to be paid is Rs.1500.0
+
+
+Output
+
+Enter your choice:
+1.Exhibition event
+2.Stage event
+2
+Enter the details of stage event:
+Movie Award Function,Awards for all category,Award function,Joe,100000,10000
+Enter the starting date of the event:
+07-01-2018
+Enter the ending date of the event:
+09-01-2018
+The GST to be paid is Rs.30000.0
