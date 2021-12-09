@@ -1,0 +1,130 @@
+Bala.Lakkamraju(2LM)
+
+
+package INHERITANCE4;
+
+public class TicketBooking {
+	private String stageEvent;
+	private String customer;
+	private Integer noOfSeats;
+	public String getStageEvent() {
+		return stageEvent;
+	}
+	public void setStageEvent(String stageEvent) {
+		this.stageEvent = stageEvent;
+	}
+	public String getCustomer() {
+		return customer;
+	}
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
+	public Integer getNoOfSeats() {
+		return noOfSeats;
+	}
+	public void setNoOfSeats(Integer noOfSeats) {
+		this.noOfSeats = noOfSeats;
+	}
+	public TicketBooking() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public TicketBooking(String stageEvent, String customer, Integer noOfSeats) {
+		super();
+		this.stageEvent = stageEvent;
+		this.customer = customer;
+		this.noOfSeats = noOfSeats;
+	}
+	public void makepayment(Double amount){
+		System.out.println("Stage event:"+stageEvent+"\nCustomer:"+customer+"\nNumber of seats:"+noOfSeats+"\nAmount "+amount+" paid in cash");
+	}
+	public void makePayment(String walletNumber , Double amount){
+		System.out.println("Stage event:"+stageEvent+"\nCustomer:"+customer+"\nNumber of seats:"+noOfSeats+"\nAmount "+amount+" paid using wallet number"+walletNumber);
+	}
+	public void makePayment(String creditCard,String ccv,String name,Double amount){
+		System.out.println("Stage event:"+stageEvent+"\nCustomer:"+customer+"\nNumber of seats:"+noOfSeats+"\nHolder name:"+name+"\nAmount "+amount+" paid using "+creditCard+"card"+"\nCCV:"+ccv);
+	}
+}
+
+
+package INHERITANCE4;
+
+import java.util.Scanner;
+
+public class TicketMain {
+
+	public static void main(String[] args) {
+		TicketBooking tb=new TicketBooking();
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the Booking details");
+		String text=sc.next();
+		String line[]=text.split(",");
+		System.out.println("1.Cash payment");
+		System.out.println("2.Wallet payment");
+		System.out.println("3.Credit card payment");
+		int num=sc.nextInt();
+		switch(num){
+		case 1:
+			System.out.println("Enter the amount");
+			double amount=sc.nextInt();
+			tb=new TicketBooking(line[0],line[1],Integer.parseInt(line[2]));
+			tb.makepayment(amount);
+			break;
+		case 2:
+			System.out.println("Enter the amount");
+			double amount1=sc.nextDouble();
+			System.out.println("Enter the wallet number");
+			String walletnumber=sc.next();
+			tb=new TicketBooking(line[0],line[1],Integer.parseInt(line[2]));
+			tb.makePayment(walletnumber, amount1);
+			break;
+		case 3:
+			System.out.println("Enter cardholder name");
+			String name=sc.next();
+			System.out.println("Enter the amount");
+			double amount2=sc.nextDouble();
+			System.out.println("Enter the credit card type");
+			String credit=sc.next();
+			System.out.println("Enter the CCV number");
+			String ccv=sc.next();
+			tb=new TicketBooking(line[0],line[1],Integer.parseInt(line[2]));
+			tb.makePayment(credit, ccv, name, amount2);
+		}
+	}
+
+}
+
+Output
+
+
+Enter the Booking details
+Aakanda, Lakkam,5
+Payment mode
+1.Cash payment
+2.Wallet payment
+3.Credit card payment
+1
+Enter the amount
+500
+Stage event: Aakanda
+Customer: Lakkam
+Number of seats:5
+Amount 500.0 paid in cash
+
+
+Enter the Booking details
+Motivational speech, John,10
+Payment mode
+1.Cash payment
+2.Wallet payment
+3.Credit card payment
+2
+Enter the amount
+400
+Enter the wallet number
+AFG-456
+Stage event: Motivational speech
+Customer: John
+Number of seats:10
+Amount 400.0 paid using wallet number AFG-456
+

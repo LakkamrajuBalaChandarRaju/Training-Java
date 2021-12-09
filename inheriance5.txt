@@ -1,0 +1,173 @@
+Bala.Lakkamraju(2LM)
+
+package inheritance5;
+
+public abstract class Event {
+	protected String name,detail,ownerName;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Event(String name, String detail, String ownerName) {
+		super();
+		this.name = name;
+		this.detail = detail;
+		this.ownerName = ownerName;
+	}
+
+	public abstract Double projectedRevenue();
+
+}
+_______________________________________________________
+package inheritance5;
+
+public class Exhibition extends Event{
+	private Integer noOfStalls;
+	public Exhibition(String name, String detail, String ownerName, Integer noOfStalls) {
+		super(name, detail, ownerName);
+		this.noOfStalls = noOfStalls;
+	}
+
+	public Integer getNoOfStalls() {
+		return noOfStalls;
+	}
+
+	public void setNoOfStalls(Integer noOfStalls) {
+		this.noOfStalls = noOfStalls;
+	}
+	public Double projectedRevenue(){
+		return (double) (noOfStalls*10000);
+		
+	}
+}
+
+___________________________________________________________________________
+package com.intellect.java.Inheritance5;
+
+public class StageEvent extends Event{
+	private Integer noOfShows,noOfSeatesPerShow;
+
+	public Integer getNoOfShows() {
+		return noOfShows;
+	}
+
+	public void setNoOfShows(Integer noOfShows) {
+		this.noOfShows = noOfShows;
+	}
+
+	public Integer getNoOfSeatesPerShow() {
+		return noOfSeatesPerShow;
+	}
+
+	public void setNoOfSeatesPerShow(Integer noOfSeatesPerShow) {
+		this.noOfSeatesPerShow = noOfSeatesPerShow;
+	}
+	public StageEvent(String name, String detail, String ownerName, Integer noOfShows, Integer noOfSeatesPerShow) {
+		super(name, detail, ownerName);
+		this.noOfShows = noOfShows;
+		this.noOfSeatesPerShow = noOfSeatesPerShow;
+	}
+	public Double projectedRevenue(){
+		return (double) (noOfSeatesPerShow*50)*noOfShows;
+		
+	}
+
+}
+
+____________________________________________________________-
+package inheritance5;
+
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the name of the event:");
+		sc.next();
+		String event=sc.nextLine();
+		System.out.println("Enter the detail of the event:");
+		String details=sc.nextLine();
+		System.out.println("Enter the owner name of the event:");
+		String owner=sc.next();
+		System.out.printf("Enter the type of the event:\n1.Exhibition\n2.StageEvent\n");
+		int choice=sc.nextInt();
+		switch (choice) {
+		case 1:
+			System.out.println("Enter the number of stalls:");
+			int noOfStalls=sc.nextInt();
+			Exhibition e=new Exhibition(event, details, owner, noOfStalls);
+			Double projectedRevenue = e.projectedRevenue();
+			System.out.println("The projected revenue of the event is "+projectedRevenue);
+			break;
+		case 2:
+			System.out.println("Enter the number of shows:");
+			int shows=sc.nextInt();
+			System.out.println("Enter the number of seats shows:");
+			int seatsPerShows=sc.nextInt();
+			StageEvent se=new StageEvent(event, details, owner, shows, seatsPerShows);
+			Double projectedRevenueStageShow = se.projectedRevenue();
+			System.out.println("The projected revenue of the event is "+projectedRevenueStageShow);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+
+Output
+
+Enter the name of the event:
+Science Fair
+Enter the detail of the event:
+Explore Technology
+Enter the owner name of the event:
+ABCD
+Enter the type of the event:
+1.Exhibition
+2.StageEvent
+1
+Enter the number of stalls:
+65
+The projected revenue of the event is 650000.0
+
+
+
+Tescase 2
+
+Enter the name of the event:
+Magic Show
+Enter the detail of the event:
+See Magic without Logic
+Enter the owner name of the event:
+SDFG
+Enter the type of the event:
+1.Exhibition
+2.StageEvent
+2
+Enter the number of shows:
+10
+Enter the number of seats per show:
+100
+The projected revenue of the event is 50000.0
