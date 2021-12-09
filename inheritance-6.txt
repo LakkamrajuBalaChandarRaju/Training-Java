@@ -1,0 +1,164 @@
+Bala.Lakkamraju(2LM)
+
+
+ Main.java
+
+package Training;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		AccountBO accountBO = null;
+		FixedAccount fixedAccount = null;
+		String detail = null;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			accountBO = new AccountBO();
+
+			System.out.println("Enter account Detail:");
+			detail = bufferedReader.readLine();
+
+			fixedAccount = accountBO.getAccountDetail(detail);
+
+			System.out.println("Account Details:");
+			System.out.format("%-20s %-10s %-20s %-20s %s\n", "Account Number", "Balance", "Account holder name",
+					"Minimum balance", "Locking period");
+			System.out.format("%-20s %-10s %-20s %-20s %s", fixedAccount.getAccountNumber(), fixedAccount.getBalance(),
+					fixedAccount.getAccountHolderName(), fixedAccount.getMinimumBalance(),
+					fixedAccount.getLockingPeriod());
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (NumberFormatException numberFormatException) {
+			System.err.println("Error: Invalid number format entered");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+	}
+}
+
+______________________________________________ 
+Account.java
+
+package Training;
+public class Account {
+	protected String accountNumber;
+	protected Double balance;
+	protected String accountHolderName;
+
+	public Account() {
+	}
+
+	public Account(String accountNumber, Double balance, String accountHolderName) {
+		this.accountNumber = accountNumber;
+		this.balance = balance;
+		this.accountHolderName = accountHolderName;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public String getAccountHolderName() {
+		return accountHolderName;
+	}
+
+	public void setAccountHolderName(String accountHolderName) {
+		this.accountHolderName = accountHolderName;
+	}
+
+}
+
+_________________________________________________
+
+ SavingAccount.java
+
+package Training;
+public class SavingAccount extends Account {
+	protected Double minimumBalance;
+
+	public SavingAccount() {
+	}
+
+	public SavingAccount(String accountNumber, Double balance, String accountHolderName, Double minimumBalance) {
+		super(accountNumber, balance, accountHolderName);
+		this.minimumBalance = minimumBalance;
+	}
+
+	public Double getMinimumBalance() {
+		return minimumBalance;
+	}
+
+	public void setMinimumBalance(Double minimumBalance) {
+		this.minimumBalance = minimumBalance;
+	}
+
+}
+
+___________________________________________
+FixedAccount.java
+
+package Training;
+public class FixedAccount extends SavingAccount {
+	private Integer lockingPeriod;
+
+	public FixedAccount() {
+	}
+
+	public FixedAccount(String accountNumber, Double balance, String accountHolderName, Double minimumBalance,
+			Integer lockingPeriod) {
+		super(accountNumber, balance, accountHolderName, minimumBalance);
+		this.lockingPeriod = lockingPeriod;
+	}
+
+	public Integer getLockingPeriod() {
+		return lockingPeriod;
+	}
+
+	public void setLockingPeriod(Integer lockingPeriod) {
+		this.lockingPeriod = lockingPeriod;
+	}
+
+}
+
+
+________________________________________________________________
+ AccountBO.java
+
+package Training;
+public class AccountBO {
+	public FixedAccount getAccountDetail(String detail) {
+		String[] data = detail.split(",");
+
+		FixedAccount fixedAccount = new FixedAccount();
+		fixedAccount.setAccountNumber(data[0]);
+		fixedAccount.setBalance(Double.parseDouble(data[1]));
+		fixedAccount.setAccountHolderName(data[2]);
+		fixedAccount.setMinimumBalance(Double.parseDouble(data[3]));
+		fixedAccount.setLockingPeriod(Integer.parseInt(data[4]));
+
+		return fixedAccount;
+	}
+}
+
+Output
+
+Enter account Detail:
+ACC001,5456.45,Tony Blake,500,10
+Account Details:
+Account Number	Balance	Account holder name	Minimum balance	Locking period
+ACC001	5456.45	Tony Blake	500.0	10

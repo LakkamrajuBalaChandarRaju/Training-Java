@@ -1,0 +1,171 @@
+Bala.Lakkamraju(2LM)
+
+
+Main.java:
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		VISACard visaCard = null;
+		HPVisaCard hpVisaCard = null;
+		boolean isOver = false;
+		String holderName = null, ccv = null, purchaseType = null, menuChoice = null;
+		double billAmount = 0.0;
+		int cardChoice = -1;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			do {
+				System.out.println("Enter the holder name");
+				holderName = bufferedReader.readLine();
+
+				System.out.println("Enter the CCV number");
+				ccv = bufferedReader.readLine();
+
+				System.out.println("Enter the bill amount");
+				billAmount = Double.parseDouble(bufferedReader.readLine());
+
+				System.out.println("Mention the type of spending");
+				purchaseType = bufferedReader.readLine();
+
+				System.out.println("Choose card type");
+				System.out.println("1.VISA Card");
+				System.out.println("2.HP VISA Card");
+				cardChoice = Integer.parseInt(bufferedReader.readLine());
+
+				switch (cardChoice) {
+				case 1:
+					visaCard = new VISACard(holderName, ccv);
+					System.out.println(visaCard);
+					System.out.println("Reward points:" + visaCard.computeRewardPoints(purchaseType, billAmount));
+					break;
+
+				case 2:
+					hpVisaCard = new HPVisaCard(holderName, ccv);
+					System.out.println(hpVisaCard);
+					System.out.println("Reward points:" + hpVisaCard.computeRewardPoints(purchaseType, billAmount));
+					break;
+
+				default:
+					System.out.println("Invalid choice");
+				}
+
+				System.out.println("Do you want to continue?(Y/N)");
+				menuChoice = bufferedReader.readLine();
+
+				if (menuChoice.equals("N")) {
+					isOver = true;
+				}
+
+			} while (!isOver);
+
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (NumberFormatException numberFormatException) {
+			System.err.println("Error: Invalid number format entered");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+
+	}
+
+}
+
+
+______________________________________________-
+VISACard.java:
+
+
+public class VISACard {
+	private String holderName;
+	private String ccv;
+
+	public VISACard() {
+	}
+
+	public VISACard(String holderName, String ccv) {
+		this.holderName = holderName;
+		this.ccv = ccv;
+	}
+
+	public String getHolderName() {
+		return holderName;
+	}
+
+	public void setHolderName(String holderName) {
+		this.holderName = holderName;
+	}
+
+	public String getCcv() {
+		return ccv;
+	}
+
+	public void setCcv(String ccv) {
+		this.ccv = ccv;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append("Holder Name:")
+				.append(holderName)
+				.append("\nCCV:")
+				.append(ccv)
+				.toString();
+	}
+
+	public Double computeRewardPoints(String purchaseType, Double amount) {
+		return amount * 0.01;
+	}
+
+}
+
+__________________________________________--
+
+ HPVisaCard.java:
+
+
+public class HPVisaCard extends VISACard {
+
+	public HPVisaCard() {
+	}
+
+	public HPVisaCard(String holderName, String ccv) {
+		super(holderName, ccv);
+	}
+
+	@Override
+	public Double computeRewardPoints(String purchaseType, Double amount) {
+		double rewardPoints = super.computeRewardPoints(purchaseType, amount);
+
+		if (purchaseType.equals("Fuel")) {
+			rewardPoints += 10;
+		}
+
+		return rewardPoints;
+	}
+}
+
+
+Output
+
+Enter the holder name
+Lakkamraju
+Enter the CCV number
+9871-9874-4569
+Enter the bill amount
+1000
+Mention the type of spending
+Fuel
+Choose card type
+1.VISA card
+2.HP VISA card
+1
+Holder name:Lakkamraju
+CCV:9871-9874-4569
+Reward points:10.0
+Do you want to continue?(Y/N)
+N 
