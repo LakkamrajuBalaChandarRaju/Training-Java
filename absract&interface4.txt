@@ -1,0 +1,327 @@
+Bala.lakkamraju(2LM)
+
+
+Main.Java
+
+package Interface4;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int choice = -1;
+		Stall stall = null;
+		String[] input = null;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			System.out.println("Choose Stall Type");
+			System.out.println("1)Gold Stall");
+			System.out.println("2)Premium Stall");
+			System.out.println("3)Executive Stall");
+
+			choice = Integer.parseInt(bufferedReader.readLine());
+
+			switch (choice) {
+			case 1:
+				System.out.println(
+						"Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of TV sets)");
+				input = bufferedReader.readLine()
+						.split(",");
+				stall = new GoldStall(input[0], Integer.parseInt(input[1]), input[2], Integer.parseInt(input[3]));
+				break;
+
+			case 2:
+				System.out.println(
+						"Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of Projectors)");
+				input = bufferedReader.readLine()
+						.split(",");
+				stall = new PremiumStall(input[0], Integer.parseInt(input[1]), input[2], Integer.parseInt(input[3]));
+				break;
+
+			case 3:
+				System.out.println(
+						"Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of Screens)");
+				input = bufferedReader.readLine()
+						.split(",");
+				stall = new ExecutiveStall(input[0], Integer.parseInt(input[1]), input[2], Integer.parseInt(input[3]));
+				break;
+
+			default:
+				throw new Exception("Invalid choice");
+			}
+
+			stall.display();
+
+		} catch (NumberFormatException numberFormatException) {
+			System.err.println("Error: Invalid number format entered");
+		} catch (IOException ioException) {
+			System.err.println("Error: IO error occurred");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+
+	}
+
+}
+
+
+_________________________________________________________________________
+PremiumStall.java
+
+package Interface4;
+
+public class PremiumStall implements Stall {
+	private String stallName;
+	private Integer cost;
+	private String ownerName;
+	private Integer projector;
+
+	public PremiumStall() {
+	}
+
+	public PremiumStall(final String stallName, final Integer cost, final String ownerName, final Integer projector) {
+		this.stallName = stallName;
+		this.cost = cost;
+		this.ownerName = ownerName;
+		this.projector = projector;
+	}
+
+	public String getStallName() {
+		return stallName;
+	}
+
+	public void setStallName(final String stallName) {
+		this.stallName = stallName;
+	}
+
+	public Integer getCost() {
+		return cost;
+	}
+
+	public void setCost(final Integer cost) {
+		this.cost = cost;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(final String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Integer getProjector() {
+		return projector;
+	}
+
+	public void setProjector(final Integer projector) {
+		this.projector = projector;
+	}
+
+	@Override
+	public void display() {
+		System.out.println("Stall Name: " + stallName);
+		System.out.println("Cost: " + cost);
+		System.out.println("Owner Name: " + ownerName);
+		System.out.println("Number of Projectors: " + projector);
+	}
+
+}
+
+__________________________________________________________________________
+GoldStall.Java
+
+
+package Interface4;
+
+public class GoldStall implements Stall {
+	private String stallName;
+	private Integer cost;
+	private String ownerName;
+	private Integer tvSet;
+
+	public GoldStall() {
+	}
+
+	public GoldStall(final String stallName, final Integer cost, final String ownerName, final Integer tvSet) {
+		this.stallName = stallName;
+		this.cost = cost;
+		this.ownerName = ownerName;
+		this.tvSet = tvSet;
+	}
+
+	public String getStallName() {
+		return stallName;
+	}
+
+	public void setStallName(final String stallName) {
+		this.stallName = stallName;
+	}
+
+	public Integer getCost() {
+		return cost;
+	}
+
+	public void setCost(final Integer cost) {
+		this.cost = cost;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(final String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Integer getTvSet() {
+		return tvSet;
+	}
+
+	public void setTvSet(final Integer tvSet) {
+		this.tvSet = tvSet;
+	}
+
+	@Override
+	public void display() {
+		System.out.println("Stall Name: " + stallName);
+		System.out.println("Cost: Rs." + cost);
+		System.out.println("Owner Name: " + ownerName);
+		System.out.println("Number of TV sets: " + tvSet);
+	}
+
+}
+
+______________________________________________________________________
+ExecutiveStall.Java
+
+
+
+package Interface4;
+
+public class ExecutiveStall implements Stall {
+	private String stallName;
+	private Integer cost;
+	private String ownerName;
+	private Integer screen;
+
+	public ExecutiveStall() {
+	}
+
+	public ExecutiveStall(final String stallName, final Integer cost, final String ownerName, final Integer screen) {
+		this.stallName = stallName;
+		this.cost = cost;
+		this.ownerName = ownerName;
+		this.screen = screen;
+	}
+
+	public String getStallName() {
+		return stallName;
+	}
+
+	public void setStallName(final String stallName) {
+		this.stallName = stallName;
+	}
+
+	public Integer getCost() {
+		return cost;
+	}
+
+	public void setCost(final Integer cost) {
+		this.cost = cost;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(final String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Integer getScreen() {
+		return screen;
+	}
+
+	public void setScreen(final Integer screen) {
+		this.screen = screen;
+	}
+
+	@Override
+	public void display() {
+		System.out.println("Stall Name: " + stallName);
+		System.out.println("Cost: Rs." + cost);
+		System.out.println("Owner Name: " + ownerName);
+		System.out.println("Number of Screens: " + screen);
+	}
+
+}
+
+____________________________________________________________________________
+Stall.Java
+
+package Interface4;
+
+public interface Stall {
+	void display();
+}
+
+
+____________________________________________________________________
+
+OutPut
+
+Choose Stall Type
+1)Gold Stall
+2)Premium Stall
+3)Executive Stall
+1
+Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of TV sets)
+The Mechanic,120000,Johnson,10
+Stall Name: The Mechanic
+Cost: Rs.120000
+Owner Name: Johnson
+Number of TV sets: 10
+
+Outpu2
+
+Choose Stall Type
+1)Gold Stall
+2)Premium Stall
+3)Executive Stall
+2
+Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of Projectors)
+Knitting plaza,300000,Zain,20
+Stall Name: Knitting plaza
+Cost: Rs.300000
+Owner Name: Zain
+Number of Projectors: 20
+
+Output3
+
+Choose Stall Type
+1)Gold Stall
+2)Premium Stall
+3)Executive Stall
+3
+Enter Stall details in comma-separated(Stall Name, Stall Cost, Owner Name, Number of Screens)
+Fruits Hunt,10000,Uber,7
+Stall Name: Fruits Hunt
+Cost: Rs.10000
+Owner Name: Uber
+Number of Screens: 7
+
+Output4
+
+
+Choose Stall Type
+1)Gold Stall
+2)Premium Stall
+3)Executive Stall
+4
+Invalid Stall Type
+
+ 

@@ -1,0 +1,209 @@
+Bala.Lakkamraju(2LM)
+
+Circle.java
+
+package Interface1;
+
+public class Circle extends Shape {
+	private Float radius;
+
+	public Circle() {
+	}
+
+	public Circle(Float radius) {
+		this.radius = radius;
+	}
+
+	public Float getRadius() {
+		return this.radius;
+	}
+
+	public void setRadius(Float radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public Double calculatePerimeter() {
+		return (2 * 3.14 * radius);
+	}
+
+}
+
+Main.Java
+
+package Interface1;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		int choice = -1;
+		float length = 0.0F, breadth = 0.0F, radius = 0.0F, side = 0.0F;
+		Shape shape = null;
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("List of Shapes:");
+			System.out.println("1.Circle");
+			System.out.println("2.Rectangle");
+			System.out.println("3.Square");
+			System.out.println("Enter your choice");
+
+			choice = scanner.nextInt();
+
+			switch (choice) {
+
+			case 1:
+				System.out.println("Enter the radius of the Circle:");
+				radius = scanner.nextFloat();
+
+				shape = new Circle(radius);
+				break;
+
+			case 2:
+				System.out.println("Enter the length of the Rectangle:");
+				length = scanner.nextFloat();
+
+				System.out.println("Enter the breadth of the Rectangle:");
+				breadth = scanner.nextFloat();
+
+				shape = new Rectangle(length, breadth);
+				break;
+
+			case 3:
+				System.out.println("Enter the side of the Square");
+				side = scanner.nextFloat();
+
+				shape = new Square(side);
+				break;
+
+			default:
+				throw new Exception("Invalid choice");
+			}
+
+			System.out.printf("The perimeter is %.2f", shape.calculatePerimeter());
+		} catch (InputMismatchException inputMismatchException) {
+			System.err.println("Error: Invalid input");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+	}
+
+}
+
+
+Rectangle.java
+
+package Interface1;
+
+public class Rectangle extends Shape {
+	private Float length;
+	private Float breadth;
+
+	public Rectangle() {
+	}
+
+	public Rectangle(Float length, Float breadth) {
+		this.length = length;
+		this.breadth = breadth;
+	}
+
+	public Float getLength() {
+		return this.length;
+	}
+
+	public void setLength(Float length) {
+		this.length = length;
+	}
+
+	public Float getBreadth() {
+		return this.breadth;
+	}
+
+	public void setBreadth(Float breadth) {
+		this.breadth = breadth;
+	}
+
+	@Override
+	public Double calculatePerimeter() {
+		return (double) (2 * (length + breadth));
+	}
+}
+
+
+Shape.java
+
+package Interface1;
+
+public abstract class Shape {
+	public abstract Double calculatePerimeter();
+}
+
+
+Square.java
+
+package Interface1;
+
+public class Square extends Shape {
+	private Float side;
+
+	public Square() {
+	}
+
+	public Square(Float side) {
+		this.side = side;
+	}
+
+	public Float getSide() {
+		return this.side;
+	}
+
+	public void setSide(Float side) {
+		this.side = side;
+	}
+
+	@Override
+	public Double calculatePerimeter() {
+		return (double) (4 * side);
+	}
+
+}
+
+Output
+
+List of Shapes:
+1.Circle
+2.Rectangle
+3.Square
+Enter your choice
+1
+Enter the radius of the Circle:
+3
+The perimeter is 18.84
+
+
+Test case 2
+
+List of Shapes:
+1.Circle
+2.Rectangle
+3.Square
+Enter your choice
+2
+Enter the length of the Rectangle:
+12
+Enter the breadth of the Rectangle:
+4
+The perimeter is 32.00
+
+Test case 3
+
+List of Shapes:
+1.Circle
+2.Rectangle
+3.Square
+Enter your choice
+3
+Enter the side of the Square
+5
+The perimeter is 20.00

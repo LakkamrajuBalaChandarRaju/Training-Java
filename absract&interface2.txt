@@ -1,0 +1,229 @@
+FundTransfer.java
+
+public abstract class FundTransfer {
+	private String accountNumber;
+	private Double balance;
+
+	public FundTransfer() {
+	}
+
+	public FundTransfer(String accountNumber, Double balance) {
+		this.accountNumber = accountNumber;
+		this.balance = balance;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	public Boolean validate(Double transfer) {
+		return (accountNumber.length() == 10) && (transfer > 0.0) && (transfer < balance);
+	}
+
+	public abstract Boolean transfer(Double transfer);
+}
+
+
+IMPSTransfer.java
+
+public class IMPSTransfer extends FundTransfer {
+
+	public IMPSTransfer() {
+	}
+
+	public IMPSTransfer(String accountNumber, Double balance) {
+		super(accountNumber, balance);
+	}
+
+	@Override
+	public Boolean transfer(Double transfer) {
+		if ((transfer + (transfer * 0.02)) < getBalance()) {
+			double newBalance = (getBalance() - transfer) - (transfer * 0.02);
+			setBalance(newBalance);
+			return true;
+		}
+
+		return false;
+	}
+
+}
+
+
+
+NEFTTransfer.java
+
+public class NEFTTransfer extends FundTransfer {
+
+	public NEFTTransfer() {
+	}
+
+	public NEFTTransfer(String accountNumber, Double balance) {
+		super(accountNumber, balance);
+	}
+
+	@Override
+	public Boolean transfer(final Double transfer) {
+		if ((transfer + (transfer * 0.05)) < getBalance()) {
+			double newBalance = (getBalance() - transfer) - (transfer * 0.05);
+			setBalance(newBalance);
+			return true;
+		}
+
+		return false;
+	}
+
+}
+
+
+RTGSTransfer.java
+
+public class RTGSTransfer extends FundTransfer {
+
+	public RTGSTransfer() {
+	}
+
+	public RTGSTransfer(String accountNumber, Double balance) {
+		super(accountNumber, balance);
+	}
+
+	@Override
+	public Boolean transfer(Double transfer) {
+		if (transfer > 10000) {
+			double newBalance = getBalance() - transfer;
+			setBalance(newBalance);
+			return true;
+		}
+
+		return false;
+	}
+
+}
+
+
+
+Main.java
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		String accountNumber = null;
+		double balance = 0.0, transfer = 0.0;
+		int choice = -1;
+		FundTransfer fundTransfer = null;
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("Enter your account number:");
+			accountNumber = scanner.next();
+
+			System.out.println("Enter the balance of the account:");
+			balance = scanner.nextDouble();
+
+			System.out.println("Enter the type of transfer to be made:");
+			System.out.println("1.NEFT");
+			System.out.println("2.IMPS");
+			System.out.println("3.RTGS");
+
+			choice = scanner.nextInt();
+
+			System.out.println("Enter the amount to be transferred:");
+			transfer = scanner.nextDouble();
+
+			switch (choice) {
+			case 1:
+				fundTransfer = new NEFTTransfer(accountNumber, balance);
+				break;
+
+			case 2:
+				fundTransfer = new IMPSTransfer(accountNumber, balance);
+				break;
+
+			case 3:
+				fundTransfer = new RTGSTransfer(accountNumber, balance);
+				break;
+
+			default:
+				throw new Exception("Invalid choice");
+			}
+
+			boolean isValid = fundTransfer.validate(transfer);
+			boolean isTransferSuccessful = fundTransfer.transfer(transfer);
+
+			if (!isValid) {
+				System.out.println("Account number or transfer amount seems to be wrong");
+			} else if (!isTransferSuccessful) {
+				System.out.println("Transfer could not be made");
+			} else {
+				System.out.println("Transfer occurred successfully");
+				System.out.println("Remaining balance is " + fundTransfer.getBalance());
+			}
+		} catch (InputMismatchException inputMismatchException) {
+			System.err.println("Error: Invalid input");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+	}
+}
+
+
+output
+
+Enter your account number:
+1234567890
+Enter the balance of the account:
+10000
+Enter the type of transfer to be made:
+1.NEFT
+2.IMPS
+3.RTGS
+1
+Enter the amount to be transferred:
+2000
+Transfer occurred successfully
+Remaining balance is 7900.0
+
+
+Output 2:
+
+Enter your account number:
+1111111
+Enter the balance of the account:
+10000
+Enter the type of transfer to be made:
+1.NEFT
+2.IMPS
+3.RTGS
+2
+Enter the amount to be transferred:
+1000
+Account number or transfer amount seems to be wrong
+
+
+Output 3:
+
+Enter your account number:
+1234567890
+Enter the balance of the account:
+50000
+Enter the type of transfer to be made:
+1.NEFT
+2.IMPS
+3.RTGS
+3
+Enter the amount to be transferred:
+7500
+Transfer could not be made
