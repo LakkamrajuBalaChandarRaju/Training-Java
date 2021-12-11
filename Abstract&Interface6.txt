@@ -1,0 +1,307 @@
+Bala.lakkamraju(2LM)
+
+
+Test.java
+
+package Interface6;
+
+public class Test extends Match {
+
+	public Test() {
+	}
+
+	public Test(int currentScore, float currentOver, int target) {
+		super(currentScore, currentOver, target);
+	}
+
+	@Override
+	public float calculateRunrate() {
+		int requiredRuns = getTarget() - getCurrentScore();
+		float remainingBalls = calculateBalls();
+
+		return (requiredRuns / remainingBalls) * 6;
+	}
+
+	@Override
+	public int calculateBalls() {
+		int totalBalls = 90 * 6;
+
+		String currentOverString = Float.toString(getCurrentOver());
+		String currentOverStringPartial = currentOverString.substring(currentOverString.indexOf(".") + 1);
+
+		int currentOverDecimalPart = Integer.parseInt(currentOverStringPartial);
+		int currentOverIntegerPart = (int) Math.floor(getCurrentOver());
+		int currentOverBalls = (currentOverIntegerPart * 6) + currentOverDecimalPart;
+
+		return totalBalls - currentOverBalls;
+	}
+
+}
+________________________________________________
+T20.java
+
+package Interface6;
+
+public class T20 extends Match {
+
+	public T20() {
+	}
+
+	public T20(int currentScore, float currentOver, int target) {
+		super(currentScore, currentOver, target);
+	}
+
+	@Override
+	public float calculateRunrate() {
+		int requiredRuns = getTarget() - getCurrentScore();
+		float remainingBalls = calculateBalls();
+
+		return (requiredRuns / remainingBalls) * 6;
+	}
+
+	@Override
+	public int calculateBalls() {
+		int totalBalls = 20 * 6;
+
+		String currentOverString = Float.toString(getCurrentOver());
+		String currentOverStringPartial = currentOverString.substring(currentOverString.indexOf(".") + 1);
+
+		int currentOverDecimalPart = Integer.parseInt(currentOverStringPartial);
+		int currentOverIntegerPart = (int) Math.floor(getCurrentOver());
+		int currentOverBalls = (currentOverIntegerPart * 6) + currentOverDecimalPart;
+
+		return totalBalls - currentOverBalls;
+	}
+
+}
+_______________________________________________-
+
+ODI.java
+
+package Interface6;
+
+public abstract class Match {
+	private int currentScore;
+	private float currentOver;
+	private int target;
+
+	public Match() {
+	}
+
+	public Match(int currentScore, float currentOver, int target) {
+		this.currentScore = currentScore;
+		this.currentOver = currentOver;
+		this.target = target;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	public float getCurrentOver() {
+		return currentOver;
+	}
+
+	public void setCurrentOver(float currentOver) {
+		this.currentOver = currentOver;
+	}
+
+	public int getTarget() {
+		return target;
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
+	}
+
+	public abstract float calculateRunrate();
+
+	public abstract int calculateBalls();
+
+	public void display() {
+		int remainingBalls = calculateBalls();
+		int remainingRuns = target - currentScore;
+
+		System.out.println("Requirements:");
+		System.out.printf("Need %d runs in %d %s\n", remainingRuns, remainingBalls, remainingBalls > 1
+				? "balls"
+				: "ball");
+		System.out.printf("Required run rate - %.2f", calculateRunrate());
+	}
+
+}
+
+____________________________________________________________
+
+Match.java
+
+package Interface6;
+
+public abstract class Match {
+	private int currentScore;
+	private float currentOver;
+	private int target;
+
+	public Match() {
+	}
+
+	public Match(int currentScore, float currentOver, int target) {
+		this.currentScore = currentScore;
+		this.currentOver = currentOver;
+		this.target = target;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	public float getCurrentOver() {
+		return currentOver;
+	}
+
+	public void setCurrentOver(float currentOver) {
+		this.currentOver = currentOver;
+	}
+
+	public int getTarget() {
+		return target;
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
+	}
+
+	public abstract float calculateRunrate();
+
+	public abstract int calculateBalls();
+
+	public void display() {
+		int remainingBalls = calculateBalls();
+		int remainingRuns = target - currentScore;
+
+		System.out.println("Requirements:");
+		System.out.printf("Need %d runs in %d %s\n", remainingRuns, remainingBalls, remainingBalls > 1
+				? "balls"
+				: "ball");
+		System.out.printf("Required run rate - %.2f", calculateRunrate());
+	}
+
+}
+____________________________________________
+Main.java
+
+package Interface6;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int choice = -1, currentScore = 0, target = 0;
+		float currentOver = 0.0F;
+		Match match = null;
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("Enter the Cricket Format");
+			System.out.println("1.ODI");
+			System.out.println("2.T20");
+			System.out.println("3.Test");
+			choice = scanner.nextInt();
+
+			if (!((choice >= 1) && (choice <= 3))) {
+				throw new Exception("Invalid Format type");
+			}
+
+			System.out.println("Enter the Current Score");
+			currentScore = scanner.nextInt();
+
+			System.out.println("Enter the Current over");
+			currentOver = scanner.nextFloat();
+
+			System.out.println("Enter the Target");
+			target = scanner.nextInt();
+
+			switch (choice) {
+			case 1:
+				match = new ODI(currentScore, currentOver, target);
+				break;
+			case 2:
+				match = new T20(currentScore, currentOver, target);
+				break;
+			case 3:
+				match = new Test(currentScore, currentOver, target);
+				break;
+			default:
+				throw new Exception("Invalid Format type");
+			}
+
+			match.display();
+
+		} catch (InputMismatchException inputMismatchException) {
+			System.err.println("Invalid Format type");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+
+	}
+
+}
+________________________________________________
+
+Enter the Cricket Format
+1.ODI
+2.T20
+3.Test
+1
+Enter the Current Score
+326
+Enter the Current over
+47
+Enter the Target
+352
+Requirements:
+Need 26 runs in 18 balls
+Required run rate - 8.67
+
+Output 2
+
+Enter the Cricket Format
+1.ODI
+2.T20
+3.Test
+2
+Enter the Current Score
+192
+Enter the Current over
+19
+Enter the Target
+223
+Requirements:
+Need 31 runs in 6 balls
+Required run rate - 31.00
+
+Output 3 
+
+Enter the Cricket Format
+1.ODI
+2.T20
+3.Test
+3
+Enter the Current Score
+320
+Enter the Current over
+81
+Enter the Target
+367
+Requirements:
+Need 47 runs in 54 balls
+Required run rate - 5.22

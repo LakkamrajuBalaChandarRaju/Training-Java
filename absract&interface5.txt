@@ -1,0 +1,254 @@
+
+
+Main.java
+
+
+package Interface5;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int guideChoice = -1;
+		String cityChoice = null;
+		MakeMyTrip makeMyTrip = null;
+		Trivago trivago = null;
+		ClearTrip clearTrip = null;
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("Choose the guide");
+			System.out.println("1)Make My Trip");
+			System.out.println("2)Trivago");
+			System.out.println("3)Clear Trip");
+			guideChoice = scanner.nextInt();
+
+			switch (guideChoice) {
+			case 1:
+				makeMyTrip = new MakeMyTrip();
+				System.out.println("Cities:");
+				makeMyTrip.displayCities();
+
+				System.out.println("Enter city where you want to search for hotels:");
+				cityChoice = scanner.next();
+				makeMyTrip.showTariff(cityChoice);
+				break;
+
+			case 2:
+				trivago = new Trivago();
+				System.out.println("Cities:");
+				trivago.displayCities();
+
+				System.out.println("Enter city where you want to search for hotels:");
+				cityChoice = scanner.next();
+				trivago.showTariff(cityChoice);
+				break;
+
+			case 3:
+				clearTrip = new ClearTrip();
+				System.out.println("Cities:");
+				clearTrip.displayCities();
+
+				System.out.println("Enter city where you want to search for hotels:");
+				cityChoice = scanner.next();
+				clearTrip.showTariff(cityChoice);
+				break;
+
+			default:
+				System.out.println("Invalid choice");
+			}
+
+		} catch (InputMismatchException inputMismatchException) {
+			System.err.println("Error: Invalid input");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+
+	}
+
+}
+
+
+_________________________________________________
+ClearTrip.java
+
+
+package Interface5;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClearTrip implements HotelTariff {
+	static Map<String, Map<String, Long>> getHotels() {
+		Map<String, Map<String, Long>> hotels = new HashMap<>();
+
+		Map<String, Long> bangaloreHotels = new HashMap<>();
+		bangaloreHotels.put("Tourist", 55000L);
+		bangaloreHotels.put("Meridian", 60000L);
+
+		Map<String, Long> delhiHotels = new HashMap<>();
+		delhiHotels.put("The Imperial", 45000L);
+		delhiHotels.put("Vivanta", 27000L);
+
+		Map<String, Long> kolkataHotels = new HashMap<>();
+		kolkataHotels.put("ITC Royal Bengal", 66000L);
+		kolkataHotels.put("Lemon Tree Premier", 54000L);
+
+		hotels.put("Bangalore", bangaloreHotels);
+		hotels.put("Delhi", delhiHotels);
+		hotels.put("Kolkata", kolkataHotels);
+
+		return hotels;
+	}
+
+	void displayCities() {
+		getHotels().keySet()
+				.forEach(System.out::println);
+	}
+
+	@Override
+	public void showTariff(String city) {
+		getHotels().entrySet()
+				.stream()
+				.filter(x -> x.getKey()
+						.equals(city))
+				.findFirst()
+				.ifPresentOrElse(x -> x.getValue()
+						.entrySet()
+						.forEach(y -> System.out.println(y.getKey() + "-" + y.getValue())),
+						() -> System.out.println("No hotels are available for this city"));
+	}
+
+}
+
+______________________________________________________________
+HotelTariff.Java
+
+package Interface5;
+
+public interface HotelTariff {
+	void showTariff(String city);
+}
+
+_________________________________
+MakeMyTrip .Java
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MakeMyTrip implements HotelTariff {
+
+	static Map<String, Map<String, Long>> getHotels() {
+		Map<String, Map<String, Long>> hotels = new HashMap<>();
+
+		Map<String, Long> mumbaiHotels = new HashMap<>();
+		mumbaiHotels.put("Hyatt", 80000L);
+		mumbaiHotels.put("Meridian", 75000L);
+
+		Map<String, Long> coimbatoreHotels = new HashMap<>();
+		coimbatoreHotels.put("ABC Residency", 25000L);
+		coimbatoreHotels.put("XYZ Hotel", 30000L);
+
+		Map<String, Long> hyderabadHotels = new HashMap<>();
+		hyderabadHotels.put("Ecludia", 80000L);
+		hyderabadHotels.put("Angel Park", 20000L);
+		hyderabadHotels.put("Le Meridian", 15000L);
+
+		hotels.put("Mumbai", mumbaiHotels);
+		hotels.put("Coimbatore", coimbatoreHotels);
+		hotels.put("Hyderabad", hyderabadHotels);
+
+		return hotels;
+	}
+
+	void displayCities() {
+		getHotels().keySet()
+				.forEach(System.out::println);
+	}
+
+	@Override
+	public void showTariff(String city) {
+		getHotels().entrySet()
+				.stream()
+				.filter(x -> x.getKey()
+						.equals(city))
+				.findFirst()
+				.ifPresentOrElse(x -> x.getValue()
+						.entrySet()
+						.forEach(y -> System.out.println(y.getKey() + "-" + y.getValue())),
+						() -> System.out.println("No hotels are available for this city"));
+	}
+
+}
+
+_______________________________________________________________
+Trivago.Java
+
+
+package Interface5;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Trivago implements HotelTariff {
+	static Map<String, Map<String, Long>> getHotels() {
+		Map<String, Map<String, Long>> hotels = new HashMap<>();
+
+		Map<String, Long> californiaHotels = new HashMap<>();
+		californiaHotels.put("Hollywood Roosevelt", 120000L);
+		californiaHotels.put("Monterey Plaza Hotel", 100000L);
+
+		Map<String, Long> massachusettsHotels = new HashMap<>();
+		massachusettsHotels.put("Rainbow Hotel", 90000L);
+		massachusettsHotels.put("Flux Residency", 80000L);
+
+		Map<String, Long> namibiaHotels = new HashMap<>();
+		namibiaHotels.put("Flamingo Villas", 40000L);
+		namibiaHotels.put("Hilton Windhoek", 60000L);
+
+		hotels.put("California", californiaHotels);
+		hotels.put("Massachusetts", massachusettsHotels);
+		hotels.put("Namibia", namibiaHotels);
+
+		return hotels;
+	}
+
+	void displayCities() {
+		getHotels().keySet()
+				.forEach(System.out::println);
+	}
+
+	@Override
+	public void showTariff(String city) {
+		getHotels().entrySet()
+				.stream()
+				.filter(x -> x.getKey()
+						.equals(city))
+				.findFirst()
+				.ifPresentOrElse(x -> x.getValue()
+						.entrySet()
+						.forEach(y -> System.out.println(y.getKey() + "-" + y.getValue())),
+						() -> System.out.println("No hotels are available for this city"));
+	}
+
+}
+
+__________________________
+
+Output
+
+Choose the guide
+1)Make My Trip
+2)Trivago
+3)Clear Trip
+1
+Cities:
+Coimbatore
+Mumbai
+Hyderabad
+Enter city where you want to search for hotels:
+Mumbai
+Meridian-75000
+Hyatt-80000
