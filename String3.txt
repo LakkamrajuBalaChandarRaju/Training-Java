@@ -1,0 +1,24 @@
+Bala.lakkamraju(2LM)
+
+package String3;
+
+import java.util.Scanner;
+
+public class String3 {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+	      System.out.println("Enter the name ");
+	      String S=sc.nextLine();
+	      
+	      System.out.println("Name:"+S.toUpperCase());
+
+	}
+
+}
+
+Output
+
+Enter the name 
+Willam EdilBert
+Name:WILLAM EDILBERT

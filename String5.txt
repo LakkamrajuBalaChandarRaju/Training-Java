@@ -1,0 +1,49 @@
+Bala.Lakkamraju(2LM)
+
+String5.java
+
+
+package String;
+
+import java.util.Scanner;
+
+public class String5 {
+
+public static void main(String[] args) {
+
+Scanner sc= new Scanner(System.in);
+System.out.println("Enter the string");
+String S=sc.nextLine();
+System.out.println("Enter the start string");
+String S1=sc.nextLine();
+if(S.startsWith(S1)==true)
+{
+System.out.println("\""+S+"\" start with \""+S1+"\"");
+}
+else
+{
+System.out.println("\""+S+"\"not start with \""+S1+"\"");
+}
+
+}
+}
+
+
+
+Output
+
+Enter the string
+Running
+Enter the start string
+Run
+"Running" start with "Run"
+
+
+Output
+
+
+Enter the string
+Running
+Enter the start string
+Fast
+"Running"not start with "Fast"

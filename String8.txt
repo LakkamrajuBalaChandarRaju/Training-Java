@@ -1,0 +1,36 @@
+package String3;
+
+import java.util.*;
+public class String8 {
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		String str = null;
+		System.out.println("Enter the Code: ");
+		str = sc.nextLine();
+		StringBuffer text = new StringBuffer();
+		if(str.startsWith("DH")){
+			text.append("DEL");
+		}
+		else if(str.startsWith("MB")){
+			text.append("MUB");
+		}
+		else if(str.startsWith("KL")){
+			text.append("KOL");
+		}
+		String digits= str.substring(2);
+		for(int i=0;i<5-digits.length();i++){
+			text.append("0");
+		}
+		text.append(digits);
+		System.out.println("Formatted Code: ");
+		System.out.println(text.toString());
+	}
+}
+
+
+Output
+
+Enter the Code: 
+KL12358906
+Formatted Code: 
+KOL12358906

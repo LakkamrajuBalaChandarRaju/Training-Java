@@ -1,0 +1,59 @@
+package String;
+
+import java.util.Scanner;
+
+public class String2 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the address 1");
+		String s1=sc.nextLine();
+		
+		System.out.println("Enter the address 2");
+		String s2=sc.nextLine();
+		
+		if(s1.equals(s2)){
+			System.out.println("RED");
+		}
+		else if(s1.replace(" ","").equals (s2.replace(" ",""))){
+			System.out.println("YELLOW");
+		}
+		else if(s1.equalsIgnoreCase(s2)){
+			System.out.println("BLUE");
+		}
+		
+		else{
+			System.out.println("GREEN");
+		}
+		
+		
+}}
+
+Output
+
+Enter the address 1
+Gudluru ongole Prakasam
+Enter the address 2
+Gudluru ongole  Prakasam
+YELLOW
+
+
+Enter the address 1
+Gudluru ongole Prakasam
+Enter the address 2
+Gudluru ongole Prakasa
+GREEN
+
+
+Enter the address 1
+Gudluru ongole Prakasam
+Enter the address 2
+Gudluru Ongole Prakasam
+BLUE
+
+
+Enter the address 1
+Gudluru ongole Prakasam
+Enter the address 2
+Gudluru ongole Prakasam
+RED

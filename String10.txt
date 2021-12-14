@@ -1,0 +1,133 @@
+Main.java
+
+package String10;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Address Details :");
+		System.out.println("Enter Line 1 : ");
+		String line1=sc.nextLine();
+		System.out.println("Enter Line 2 : ");
+		String line2=sc.nextLine();
+		System.out.println("Enter city : ");
+		String city=sc.nextLine();
+		System.out.println("Enter Country : ");
+		String country=sc.nextLine();
+		System.out.println("Enter zipCode : ");
+		int zipCode=sc.nextInt();
+		Address address = new Address(line1, line2, city, country, zipCode);
+		System.out.println("Address Details:");
+		System.out.println(address);
+	}
+
+}
+
+
+
+Address.java
+
+package String10;
+
+public class Address {
+	private String line1;
+	private String line2;
+	private String city;
+	private String country;
+	private int zipCode;
+	
+	public Address(String line1, String line2, String city, String country, Integer zipCode) {
+		this.line1 = line1;
+		this.line2 = line2;
+		this.city = city;
+		this.country = country;
+		this.zipCode = zipCode;
+		}
+
+	public String getLine1() {
+		return line1;
+	}
+
+
+	public void setLine1(String line1) {
+		this.line1 = line1;
+	}
+
+
+	public String getLine2() {
+		return line2;
+	}
+
+
+	public void setLine2(String line2) {
+		this.line2 = line2;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
+	public int getZipCode() {
+		return zipCode;
+	}
+
+
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
+	}
+
+
+	@Override
+	public String toString() {
+	return new StringBuilder().append(line1).append(",\n").append(line2).append(",\n").append(city).append("-")
+	.append(zipCode).append("\n").append(country).toString();
+	}
+	
+
+
+	public static void main(String[] args) {
+				
+
+	}
+
+}
+
+
+Output
+
+Enter Address Details :
+Enter Line 1 : 
+mogullur,142
+Enter Line 2 : 
+gudluru
+Enter city : 
+ongole
+Enter Country : 
+india
+Enter zipCode : 
+523115
+Address Details:
+mogullur,142,
+gudluru,
+ongole-523115
+india

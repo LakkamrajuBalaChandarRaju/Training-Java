@@ -1,0 +1,25 @@
+
+
+package String3;
+
+import java.util.Scanner;
+
+public class String7 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the String ");
+		String S=sc.nextLine();
+		
+		System.out.println("The processed string is " +S.replaceAll("\s+", " ") );
+	}
+
+}
+
+
+Output
+
+Enter the String 
+Lakkam      Raju   Bala   Chandar Raju
+The processed string is Lakkam Raju Bala Chandar Raju
+

@@ -1,0 +1,34 @@
+package String3;
+
+import java.util.Scanner;
+
+public class String9 {
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+	     System.out.println("Enter the email address");
+	     String S = sc.nextLine();
+	     
+	     if(S.endsWith("com")||S.endsWith("in")||S.endsWith("net")||S.endsWith("org")) {
+	    	 System.out.println("Valid email address");
+	     }
+	     
+	     else {
+	    	 System.out.println("Invalid email address");
+	     }
+	}
+
+}
+
+
+Output
+
+Enter the email address
+bala@gmail.in
+Valid email address
+
+Output2 
+
+Enter the email address
+bala@gmail.yag
+Invalid email address

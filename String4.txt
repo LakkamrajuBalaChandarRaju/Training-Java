@@ -1,0 +1,58 @@
+Bala.Lakkamraju(2LM)
+
+String4.java
+
+package String;
+
+import java.util.Scanner;
+
+public class String4 {
+
+public static void main(String[] args) {
+
+Scanner sc=new Scanner(System.in);
+String [ ] Items = new String [15];
+int Electronic = 0,Furniture=0;
+
+System.out.println("Enter the number of items:");
+int arraysize=sc.nextInt();
+
+System.out.println("Enter Item details(Supplier Name followed by Item Code followed by Item Type Key)");
+
+for(int i=0;i<=arraysize;i++)
+{
+Items[i]=sc.nextLine();
+}
+
+for(int i=0;i<=arraysize;i++)
+{
+if(Items[i].endsWith("EL"))
+{
+Electronic++;
+}
+else if(Items[i].endsWith("FUR"))
+{
+Furniture++;
+}
+
+}
+
+System.out.println("Furniture items count ="+Electronic);
+System.out.println("Electronics item count ="+Furniture);
+
+
+}
+
+}
+
+
+Output
+
+Enter the number of items:
+3
+Enter Item details(Supplier Name followed by Item Code followed by Item Type Key)
+Clinton24FUR
+Christina13JK
+Lessie9ELR
+Furniture items count =0
+Electronics item count =1
