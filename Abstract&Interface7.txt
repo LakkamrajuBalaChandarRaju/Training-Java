@@ -1,0 +1,208 @@
+Bala.Lakkamraju(2LM)
+
+Main.java
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		String holderName = null, accountNumber = null;
+		float previousCreditScore = 0.0F, amount = 0.0F;
+		int choice = -1;
+		RBI bank = null;
+
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+			System.out.println("Select the Bank Name");
+			System.out.println("1.ICICI");
+			System.out.println("2.HDFC");
+			choice = Integer.parseInt(bufferedReader.readLine());
+
+			if (!((choice == 1) || (choice == 2))) {
+				throw new Exception("Invalid Bank type");
+			}
+
+			System.out.println("Enter the Holder Name");
+			holderName = bufferedReader.readLine();
+
+			System.out.println("Enter the Account Number");
+			accountNumber = bufferedReader.readLine();
+
+			System.out.println("Enter the Previous Credit Score");
+			previousCreditScore = Float.parseFloat(bufferedReader.readLine());
+
+			System.out.println("Enter the Amount to be Paid");
+			amount = Float.parseFloat(bufferedReader.readLine());
+
+			switch (choice) {
+			case 1:
+				bank = new ICICI(accountNumber, previousCreditScore, holderName, amount);
+				break;
+			case 2:
+				bank = new HDFC(accountNumber, previousCreditScore, holderName, amount);
+				break;
+			default:
+				throw new Exception("Invalid Bank type");
+			}
+
+			bank.display();
+		} catch (NumberFormatException numberFormatException) {
+			System.err.println("Invalid Format type");
+		} catch (Exception exception) {
+			System.err.println(exception.getMessage());
+		}
+
+	} 
+____________________________________
+ Bank.java
+
+public interface Bank {
+	double calculateCreditScore();
+}
+_________________________________________
+ RBI.java
+
+public class RBI implements Bank {
+	private String accountNumber;
+	private double creditScore;
+	private String holderName;
+	private double amount;
+	private static final double CREDIT = 0.10;
+
+	public RBI() {
+	}
+
+	public RBI(String accountNumber, double creditScore, String holderName, double amount) {
+		this.accountNumber = accountNumber;
+		this.creditScore = creditScore;
+		this.holderName = holderName;
+		this.amount = amount;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public double getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(double creditScore) {
+		this.creditScore = creditScore;
+	}
+
+	public String getHolderName() {
+		return holderName;
+	}
+
+	public void setHolderName(String holderName) {
+		this.holderName = holderName;
+	}
+
+	public static double getCredit() {
+		return CREDIT;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	@Override
+	public double calculateCreditScore() {
+		return amount * CREDIT;
+	}
+
+	public void display() {
+		double currentScore = calculateCreditScore();
+		double totalScore = currentScore + creditScore;
+
+		System.out.println("Amount Paid Successfully !!!");
+		System.out.println("Hi," + holderName);
+		System.out.printf("You have gained %.2f credit score for the payment of %.1f \n", currentScore, amount);
+		System.out.printf("Your Total Credit Score is %.2f", totalScore);
+	}
+
+}
+___________________________________
+ HDFC.java
+
+public class HDFC extends RBI {
+	public HDFC() {
+	}
+
+	public HDFC(String accountNumber, double creditScore, String holderName, double amount) {
+		super(accountNumber, creditScore, holderName, amount);
+	}
+
+}
+_____________________________________
+ ICICI.java
+
+public class ICICI extends RBI {
+	public ICICI() {
+	}
+
+	public ICICI(String accountNumber, double creditScore, String holderName, double amount) {
+		super(accountNumber, creditScore, holderName, amount);
+	}
+
+}
+
+
+
+
+__________________
+Output 1
+
+Select the Bank Name
+1.ICICI
+2.HDFC
+1
+Enter the Holder Name
+Lakkamraju
+Enter the Account Number
+123456789
+Enter the Previous Credit Score
+873
+Enter the Amount to be Paid
+289993
+Amount Paid Successfully !!!
+Hi,Lakkamraju
+You have gained 28999.30 credit score for the payment of 289993.0 
+Your Total Credit Score is 29872.30
+
+Output2
+
+Select the Bank Name
+1.ICICI
+2.HDFC
+2
+Enter the Holder Name
+Raju
+Enter the Account Number
+987653211
+Enter the Previous Credit Score
+728
+Enter the Amount to be Paid
+978527
+Amount Paid Successfully !!!
+Hi,Raju
+You have gained 97852.70 credit score for the payment of 978527.0 
+Your Total Credit Score is 98580.70
+
+Output 3
+
+Select the Bank Name
+1.ICICI
+2.HDFC
+3
+Invalid Bank type
